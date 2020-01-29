@@ -2,12 +2,12 @@ import cv2
 import matplotlib.pyplot as plt
 import numpy as np
 
-img0 = cv2.imread('img/normal.jpg', cv2.IMREAD_GRAYSCALE)
-img1 = cv2.imread('img/defect1.jpg', cv2.IMREAD_GRAYSCALE)
+img0 = cv2.imread('./img/normal.jpg', cv2.IMREAD_GRAYSCALE)
+img1 = cv2.imread('./img/defect1.jpg', cv2.IMREAD_GRAYSCALE)
 img0 = cv2.resize(img0, dsize=(640, 480), interpolation=cv2.INTER_AREA)
 img1 = cv2.resize(img1, dsize=(640, 480), interpolation=cv2.INTER_AREA)
-img0 = cv2.Canny(img0, 100, 150)
-img1 = cv2.Canny(img1, 100, 150)
+#img0 = cv2.Canny(img0, 100, 150)
+#img1 = cv2.Canny(img1, 100, 150)
 
 detector = cv2.ORB_create(100)
 kps0, fea0 = detector.detectAndCompute(img0, None)
@@ -52,12 +52,12 @@ for mat in final_matches:
     # Append to each list
     list_kp1.append((x1, y1))
     list_kp2.append((x2, y2))
-    
+
 # 공통점들의 픽셀 좌표 출력
 i = 0
 list_new1 = []
 list_new2 = []
-for i in range(4):
+for i in range(5):
     print(list_kp1[i])
     print(list_kp2[i])
     list_new1.append(list_kp1[i]) 
@@ -65,12 +65,12 @@ for i in range(4):
 ###test to get last pixel data
 plt.figure()
 plt.imshow(dbg_img [:, :, [2,1,0]])
-cv2.imwrite('img/common.jpg', dbg_img)
+cv2.imwrite('./img/common.jpg', dbg_img)
 plt.tight_layout()
 plt.show()
 
  ###################################################################### 원근법 짬뽕 시작
-
+'''
 #원근법 img0가 되어 img1을 변형함.
 show_img = np.copy(img1)
 original_img = np.copy(img0)
@@ -84,12 +84,14 @@ print(dst_pts)
 
 perspective_m = cv2.getPerspectiveTransform(src_pts, dst_pts) 
 unwarped_img = cv2.warpPerspective(img1, perspective_m, (640, 480))
-cv2.imwrite('img/changed.jpg', unwarped_img)
-cv2.imwrite('img/criteria.jpg', original_img)
+cv2.imwrite('./img/changed.jpg', unwarped_img)
+cv2.imwrite('./img/criteria.jpg', original_img)
 
 cv2.imshow('result', np.hstack((original_img, unwarped_img)))
 cv2.imshow('substract', cv2.subtract(unwarped_img, original_img))
-cv2.imwrite('img/substract.jpg', cv2.subtract(unwarped_img, original_img))
+cv2.imwrite('./img/substract.jpg', cv2.subtract(unwarped_img, original_img))
 k = cv2.waitKey()
 
 cv2.destroyAllWindows()
+'''
+
