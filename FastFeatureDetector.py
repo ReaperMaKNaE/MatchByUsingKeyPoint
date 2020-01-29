@@ -44,7 +44,7 @@ for i in range(len(kp)-2):
 
             total_distance = first_distance + second_distance
 
-            if(total_distance < 10) :
+            if(total_distance < 8) :
                 distanceUnder10 = distanceUnder10 + 1
                 triangleToIndicateDefect.append(list_kp1[j])
             elif(total_distance < 30) :
@@ -64,6 +64,10 @@ print(triangleToIndicateDefect)
 print('# of the components for under 10 : ', len(triangleToIndicateDefect))
 
 for i in range(len(triangleToIndicateDefect)):
-    cv2.circle(src, (int(float(triangleToIndicateDefect[i][0]), int(float(triangleToIndicateDefect[i][1])))), 5, (0,0,255), 2)
+    cv2.circle(src, (int(float(triangleToIndicateDefect[i][0])), int(float(triangleToIndicateDefect[i][1]))), 10, (0,0,255), 3)
 
-cv2.imshow(src)
+cv2.imwrite('./img/withCircle_defect1.png', src)
+cv2.imshow('src', src)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
