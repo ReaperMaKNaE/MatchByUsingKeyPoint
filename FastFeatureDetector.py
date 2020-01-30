@@ -34,7 +34,7 @@ print('len(kp_normalImage)=', len(kp_normalImage))
 cv2.imshow('dst_normalImage',  dst_normalImage)
 
 # Find Key point of Defect Image and show it with bigger threshold Value
-fastF_defectImage =cv2.FastFeatureDetector.create(threshold=90)
+fastF_defectImage =cv2.FastFeatureDetector.create(threshold=80)
 kp_defectImage = fastF_defectImage.detect(defectImage)
 dst_defectImage = cv2.drawKeypoints(defectImage, kp_defectImage, None, color=(0,0,255))
 print('len(kp_defectImage)=', len(kp_defectImage))
@@ -132,6 +132,9 @@ for i in range(len(popList)):
 for i in range(len(triangleForNormalImage)):
     cv2.circle(normalImage, (int(float(triangleForNormalImage[i][0])), int(float(triangleForNormalImage[i][1]))), 10, (0,0,255), 3)
 
+# Draw Lines For compare distance
+cv2.line(normalImage, (10,10), (40,10), (0,255,0), 5)
+
 print('After remove close pixels : ', triangleForNormalImage)
 
 cv2.imwrite('./img/withCircle_normal.png', normalImage)
@@ -211,7 +214,35 @@ for i in range(len(triangleForDefectImage)):
 
 print('After remove close pixels : ', triangleForDefectImage)
 
+# Draw Lines For compare distance
+cv2.line(defectImage, (10,10), (40,10), (0,255,0), 5)
+
 cv2.imwrite('./img/withCircle_defect1.png', defectImage)
 cv2.imshow('defectImage', defectImage)
+
+DefectPart = []
+
+for i in range(len(triangleForDefectImage)):
+    DefectPart.append(1)
+
+for i in range(len(triangleForDefectImage)):
+    for j in range(len(triangleForNormalImage)):
+        distanceXBetweenNormalAndDefect = triangleForDefectImage[i][0] - triangleForNormalImage[j][0]
+        distanceYBetweenNormalAndDefect = triangleForDefectImage[i][1] - triangleForNormalImage[j][1]
+
+        distanceBetweenNormalAndDefect = math.sqrt( distanceXBetweenNormalAndDefect **2 + distanceYBetweenNormalAndDefect ** 2)
+
+        if(distanceBetweenNormalAndDefect < 30) :
+            DefectPart[i] = 0
+
+
+defect = 0
+
+for i in range(len(triangleForDefectImage)):
+    if(DefectPart[i] == 1):
+        defect = 1
+
+if defect == 1 :
+    print('Defect is Detected!!')
 
 cv2.waitKey(0)
