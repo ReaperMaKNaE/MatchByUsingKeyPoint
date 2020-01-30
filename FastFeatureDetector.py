@@ -15,26 +15,42 @@ import cv2
 import matplotlib.pyplot as plt
 import numpy as np
 import math
+'''
+cv2.imwrite('./img/rotatedNormalImage.png', resizedNormalImage)
+cv2.imwrite('./img/rotatedDefectImage.png', resizedRotatedDefectImage)
+'''
 
 # Call Normal Image and Pre-processing
-normalImage = cv2.imread('./img/normal.jpg')
+normalImage = cv2.imread('./img/rotatedNormalImage.png')
 normalImage = cv2.resize(normalImage, dsize=(640,480), interpolation = cv2.INTER_AREA)
 normalImage = cv2.cvtColor(normalImage, cv2.COLOR_BGR2GRAY)
 
+# Backup Color Normal Image
+normalImage_color = cv2.imread('./img/rotatedNormalImage.png')
+normalImage_color = cv2.resize(normalImage_color, dsize=(640,480), interpolation = cv2.INTER_AREA)
+
 # Call Defect Image and Pre-processing
-defectImage = cv2.imread('./img/defect1.jpg')
+defectImage = cv2.imread('./img/rotatedDefectImage.png')
 defectImage = cv2.resize(defectImage, dsize=(640,480), interpolation = cv2.INTER_AREA)
 defectImage = cv2.cvtColor(defectImage,cv2.COLOR_BGR2GRAY)
 
+# Backup Color Defect Image
+defectImage_color = cv2.imread('./img/rotatedDefectImage.png')
+defectImage_color = cv2.resize(defectImage_color, dsize=(640,480), interpolation = cv2.INTER_AREA)
+
+# Backup Color Defect Image
+defectImage_color_Defect = cv2.imread('./img/rotatedDefectImage.png')
+defectImage_color_Defect = cv2.resize(defectImage_color_Defect, dsize=(640,480), interpolation = cv2.INTER_AREA)
+
 # Find Key point of Normal Image and show it with smaller threshold Value
-fastF_normalImage =cv2.FastFeatureDetector.create(threshold=80)
+fastF_normalImage =cv2.FastFeatureDetector.create(threshold=50)
 kp_normalImage = fastF_normalImage.detect(normalImage)
 dst_normalImage = cv2.drawKeypoints(normalImage, kp_normalImage, None, color=(0,0,255))
 print('len(kp_normalImage)=', len(kp_normalImage))
 cv2.imshow('dst_normalImage',  dst_normalImage)
 
 # Find Key point of Defect Image and show it with bigger threshold Value
-fastF_defectImage =cv2.FastFeatureDetector.create(threshold=90)
+fastF_defectImage =cv2.FastFeatureDetector.create(threshold=50)
 kp_defectImage = fastF_defectImage.detect(defectImage)
 dst_defectImage = cv2.drawKeypoints(defectImage, kp_defectImage, None, color=(0,0,255))
 print('len(kp_defectImage)=', len(kp_defectImage))
@@ -130,15 +146,15 @@ for i in range(len(popList)):
     popNum += 1
 
 for i in range(len(triangleForNormalImage)):
-    cv2.circle(normalImage, (int(float(triangleForNormalImage[i][0])), int(float(triangleForNormalImage[i][1]))), 10, (0,0,255), 3)
+    cv2.circle(normalImage_color, (int(float(triangleForNormalImage[i][0])), int(float(triangleForNormalImage[i][1]))), 10, (0,0,255), 3)
 
 # Draw Lines For compare distance
-cv2.line(normalImage, (10,10), (40,10), (0,255,0), 5)
+cv2.line(normalImage_color, (10,10), (40,10), (0,255,0), 5)
 
 print('After remove close pixels : ', triangleForNormalImage)
 
-cv2.imwrite('./img/withCircle_Normal_1.png', normalImage)
-cv2.imshow('normalImage', normalImage)
+cv2.imwrite('./img/withCircle_Normal_1.png', normalImage_color)
+cv2.imshow('normalImage', normalImage_color)
 
 # Initialize distances Value Again
 distanceUnder1 = 0
@@ -209,20 +225,17 @@ for i in range(len(popList)):
     print('remove order : ', popList[i]-popNum)
     popNum += 1
 
-# backup Defect Image
-defectImageForIndicateDefect = defectImage
-
 # Draw Keypoints for defectImage
 for i in range(len(triangleForDefectImage)):
-    cv2.circle(defectImage, (int(float(triangleForDefectImage[i][0])), int(float(triangleForDefectImage[i][1]))), 10, (0,0,255), 3)
+    cv2.circle(defectImage_color, (int(float(triangleForDefectImage[i][0])), int(float(triangleForDefectImage[i][1]))), 10, (0,0,255), 3)
 
 print('After remove close pixels : ', triangleForDefectImage)
 
 # Draw Lines For compare distance
 cv2.line(defectImage, (10,10), (40,10), (0,255,0), 5)
 
-cv2.imwrite('./img/withCircle_Defect_1.png', defectImage)
-cv2.imshow('defectImage', defectImage)
+cv2.imwrite('./img/withCircle_Defect_1.png', defectImage_color)
+cv2.imshow('defectImage', defectImage_color)
 
 # Record Defect Part
 DefectPart = []
@@ -253,7 +266,7 @@ if defect == 1 :
     print('Defect is Detected!!')
     for i in range(len(defectIndex)):
         print('Defect Point : ', triangleForDefectImage[defectIndex[i]])
-        cv2.circle(defectImageForIndicateDefect, (int(float(triangleForDefectImage[i][0])), int(float(triangleForDefectImage[i][1]))), 20, (0,255,255), 3)
-    cv2.imshow('defectImage With Circle', defectImageForIndicateDefect)
+        cv2.circle(defectImage_color_Defect, (int(float(triangleForDefectImage[i][0])), int(float(triangleForDefectImage[i][1]))), 20, (0,255,255), 3)
+    cv2.imshow('defectImage With Circle', defectImage_color_Defect)
 
 cv2.waitKey(0)
