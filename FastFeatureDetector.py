@@ -27,14 +27,14 @@ defectImage = cv2.resize(defectImage, dsize=(640,480), interpolation = cv2.INTER
 defectImage = cv2.cvtColor(defectImage,cv2.COLOR_BGR2GRAY)
 
 # Find Key point of Normal Image and show it with smaller threshold Value
-fastF_normalImage =cv2.FastFeatureDetector.create(threshold=70)
+fastF_normalImage =cv2.FastFeatureDetector.create(threshold=80)
 kp_normalImage = fastF_normalImage.detect(normalImage)
 dst_normalImage = cv2.drawKeypoints(normalImage, kp_normalImage, None, color=(0,0,255))
 print('len(kp_normalImage)=', len(kp_normalImage))
 cv2.imshow('dst_normalImage',  dst_normalImage)
 
 # Find Key point of Defect Image and show it with bigger threshold Value
-fastF_defectImage =cv2.FastFeatureDetector.create(threshold=80)
+fastF_defectImage =cv2.FastFeatureDetector.create(threshold=90)
 kp_defectImage = fastF_defectImage.detect(defectImage)
 dst_defectImage = cv2.drawKeypoints(defectImage, kp_defectImage, None, color=(0,0,255))
 print('len(kp_defectImage)=', len(kp_defectImage))
@@ -137,7 +137,7 @@ cv2.line(normalImage, (10,10), (40,10), (0,255,0), 5)
 
 print('After remove close pixels : ', triangleForNormalImage)
 
-cv2.imwrite('./img/withCircle_normal.png', normalImage)
+cv2.imwrite('./img/withCircle_Normal_1.png', normalImage)
 cv2.imshow('normalImage', normalImage)
 
 # Initialize distances Value Again
@@ -209,6 +209,10 @@ for i in range(len(popList)):
     print('remove order : ', popList[i]-popNum)
     popNum += 1
 
+# backup Defect Image
+defectImageForIndicateDefect = defectImage
+
+# Draw Keypoints for defectImage
 for i in range(len(triangleForDefectImage)):
     cv2.circle(defectImage, (int(float(triangleForDefectImage[i][0])), int(float(triangleForDefectImage[i][1]))), 10, (0,0,255), 3)
 
@@ -217,9 +221,10 @@ print('After remove close pixels : ', triangleForDefectImage)
 # Draw Lines For compare distance
 cv2.line(defectImage, (10,10), (40,10), (0,255,0), 5)
 
-cv2.imwrite('./img/withCircle_defect1.png', defectImage)
+cv2.imwrite('./img/withCircle_Defect_1.png', defectImage)
 cv2.imshow('defectImage', defectImage)
 
+# Record Defect Part
 DefectPart = []
 
 for i in range(len(triangleForDefectImage)):
@@ -237,12 +242,18 @@ for i in range(len(triangleForDefectImage)):
 
 
 defect = 0
+defectIndex = []
 
 for i in range(len(triangleForDefectImage)):
     if(DefectPart[i] == 1):
         defect = 1
+        defectIndex.append(i)
 
 if defect == 1 :
     print('Defect is Detected!!')
+    for i in range(len(defectIndex)):
+        print('Defect Point : ', triangleForDefectImage[defectIndex[i]])
+        cv2.circle(defectImageForIndicateDefect, (int(float(triangleForDefectImage[i][0])), int(float(triangleForDefectImage[i][1]))), 20, (0,255,255), 3)
+    cv2.imshow('defectImage With Circle', defectImageForIndicateDefect)
 
 cv2.waitKey(0)
