@@ -3,7 +3,7 @@ import FastFeatureDetector as FFD
 import ShapeDetect as SD
 
 inputImage1 = './img/normal1.png'
-inputImage2 = './img/defect2.jpg'
+inputImage2 = './img/defect1.png'
 
 SD.ShapeDetector(inputImage1, inputImage2)
 
