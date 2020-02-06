@@ -19,6 +19,8 @@ PI = 3.141592
 whiteScreen = 10
 
 def ShapeDetector(inputImage1, inputImage2):
+    XPixelOfInputimage2 = 3840
+    YPixelOfInputimage2 = 2160
     # Call Normal Image
     normal_image = cv2.imread(inputImage1)
     normal_image = cv2.resize(normal_image, dsize=(640, 480), interpolation=cv2.INTER_AREA)
@@ -149,8 +151,7 @@ def ShapeDetector(inputImage1, inputImage2):
             M2 = cv2.getRotationMatrix2D((rows/2, cols/2), -AngleDiscrepancyInDegree, 1.0)
         else:
             M2 = cv2.getRotationMatrix2D((rows/2, cols/2), AngleDiscrepancyInDegree, 1.0)
-        rotatedDefectImageCut = cv2.warpAffine(defectImageForCut, M2, (4096,2160))
-
+        rotatedDefectImageCut = cv2.warpAffine(defectImageForCut, M2, (XPixelOfInputimage2, YPixelOfInputimage2))
 
         # Find Smallest area box
         gray_rotatedDefect = cv2.cvtColor(rotatedDefectImage, cv2.COLOR_BGR2GRAY)
@@ -193,20 +194,20 @@ def ShapeDetector(inputImage1, inputImage2):
         YDirectionPixelNormal = []
 
         XDirectionPixelDefect.append((min([box_rotatedDefect[2][1] - whiteScreen , box_rotatedDefect[3][1] - whiteScreen])
-                                     *2160/480,
+                                     *YPixelOfInputimage2/480,
                                      max([box_rotatedDefect[3][1] + whiteScreen , box_rotatedDefect[0][1] + whiteScreen])
-                                     *2160/480))
+                                     *YPixelOfInputimage2/480))
 
         YDirectionPixelDefect.append((min([box_rotatedDefect[1][0] - whiteScreen , box_rotatedDefect[0][0] - whiteScreen])
-                                      *4096/640,
+                                      *XPixelOfInputimage2/640,
                                       max([box_rotatedDefect[2][0] + whiteScreen , box_rotatedDefect[3][0] + whiteScreen])
-                                      *4096/640))
+                                      *XPixelOfInputimage2/640))
 
-        XDirectionPixelNormal.append((min([box[2][1] - whiteScreen , box[3][1] - whiteScreen])*2160/480,
-                                     max([box[3][1] + whiteScreen , box[0][1] + whiteScreen])*2160/480))
+        XDirectionPixelNormal.append((min([box[2][1] - whiteScreen , box[3][1] - whiteScreen])*YPixelOfInputimage2/480,
+                                     max([box[3][1] + whiteScreen , box[0][1] + whiteScreen])*YPixelOfInputimage2/480))
 
-        YDirectionPixelNormal.append((min([box[1][0] - whiteScreen , box[0][0] - whiteScreen])*4096/640,
-                                      max([box[2][0] + whiteScreen , box[3][0] + whiteScreen])*4096/640))
+        YDirectionPixelNormal.append((min([box[1][0] - whiteScreen , box[0][0] - whiteScreen])*XPixelOfInputimage2/640,
+                                      max([box[2][0] + whiteScreen , box[3][0] + whiteScreen])*XPixelOfInputimage2/640))
 
         print('min and max value for Defect Image : ', XDirectionPixelDefect, YDirectionPixelDefect)
         print('min and max value for Normal Image : ', XDirectionPixelNormal, YDirectionPixelNormal)
