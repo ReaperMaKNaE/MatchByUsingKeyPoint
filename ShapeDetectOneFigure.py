@@ -22,8 +22,9 @@ def ShapeDetectForSingleImage(inputImage):
 
     # Call Image and Get Information for Image
 
-    Image = cv2.imread(inputImage)
+    Image = cv2.imread('./img/' + inputImage)
     YPixels, XPixels, channels = Image.shape
+    print('Y Pixels : ', YPixels, 'X Pixels : ', XPixels, 'channels : ', channels)
 
     # Back up Original Image
 
@@ -64,7 +65,7 @@ def ShapeDetectForSingleImage(inputImage):
     dst1 = dst.copy()
     cv2.drawContours(dst1, [box], 0, (0,0,255), 2)
     cv2.imshow('Image After Contour', dst1)
-    cv2.imwrite('./img/ContouredImage.png', dst1)
+    cv2.imwrite('./img/Contoured' + inputImage, dst1)
 
     # Print Coordinate for Normal Image
 
@@ -84,11 +85,16 @@ def ShapeDetectForSingleImage(inputImage):
 
         AngleForImage = math.atan(slopeForHorizontalImage)
 
+        ImageForSmallScreen = ImageForCut.copy()
+        ImageForSmallScreen = cv2.resize(ImageForSmallScreen, dsize=(640, 480), interpolation=cv2.INTER_AREA)
+
+        YPixelsForSmall, XPixelsForSmall, _ = ImageForSmallScreen.shape
+
         print('Angle of Image : ', AngleForImage)
 
         # If tilting angle of product has bigger than 0, below variable will be 0. if not, 1
 
-        if(AngleForNormalImage > 0):
+        if(AngleForImage > 0):
             AngleForImage = -AngleForImage
 
         AngleForImageInDegree = AngleForImage*180/PI
@@ -96,8 +102,8 @@ def ShapeDetectForSingleImage(inputImage):
 
         # Rotates Figures
 
-        M1 = cv2.getRotationMatrix2D((YPixels/2, XPixels/2), AngleForImageInDegree, 1.0)
-        rotatedImage = cv2.warpAffine(ImageForCut, M1, (640, 480))
+        M1 = cv2.getRotationMatrix2D((YPixelsForSmall/2, XPixelsForSmall/2), AngleForImageInDegree, 1.0)
+        rotatedImage = cv2.warpAffine(ImageForSmallScreen, M1, (640, 480))
 
         # Show Rotated Image
 
@@ -105,7 +111,7 @@ def ShapeDetectForSingleImage(inputImage):
 
         # Rotates Image be cut
 
-        rotatedImageForCut = cv2.warpAffine(ImageForCut, M1, (YPixels, XPixels))
+        rotatedImageForCut = cv2.warpAffine(ImageForCut, M1, (XPixels, YPixels))
 
         # Find Smallest area box
 
@@ -117,7 +123,7 @@ def ShapeDetectForSingleImage(inputImage):
         mode = cv2.RETR_EXTERNAL
         method = cv2.CHAIN_APPROX_SIMPLE
         contoursRotatedImage, hierarchyRotatedImage = cv2.findContours(binaryRotatedImage, mode, method)
-        print('len(contours_rotatedDefect) = ', len(contours_rotatedDefect))
+        print('len(contoursRotatedImage) = ', len(contoursRotatedImage))
 
         maxLengthRotatedImage = 0
         kRotatedImage = 0
@@ -146,32 +152,30 @@ def ShapeDetectForSingleImage(inputImage):
         XPixelsForCut = []
         YPixelsForCut = []
 
-        XPixelsForCut.append((min([boxRotatedImage[2][1] - whiteScreen , boxRotatedImage[3][1] - whiteScreen])
-                              * YPixels/480,
-                              max([boxRotatedImage[3][1] + whiteScreen , boxRotatedImage[0][1] - whiteScreen])
-                              * YPixels/480))
+        XPixelsForCut.append((min([boxRotatedImage[2][1] - whiteScreen , boxRotatedImage[3][1] - whiteScreen]),
+                              max([boxRotatedImage[1][1] + whiteScreen , boxRotatedImage[0][1] - whiteScreen])))
 
-        YPixelsForCut.append((min([boxRotatedImage[1][0] - whiteScreen , boxRotatedImage[0][0] - whiteScreen])
-                             * XPixels/640,
-                             max([boxRotatedImage[2][0] + whiteScreen, boxRotatedImage[3][0] + whiteScreen])
-                             * XPixels/640))
+        YPixelsForCut.append((min([boxRotatedImage[1][0] - whiteScreen , boxRotatedImage[0][0] - whiteScreen]),
+                             max([boxRotatedImage[2][0] + whiteScreen, boxRotatedImage[3][0] + whiteScreen])))
 
         print('min and max value for Image : ', XPixelsForCut, YPixelsForCut)
 
-        print('round number = ', int(round(XPixelsForCut[0][0])),round(XPixelsForCut[0][1]),
+        print('round number = ', round(XPixelsForCut[0][0]),round(XPixelsForCut[0][1]),
                                  round(YPixelsForCut[0][0]),round(YPixelsForCut[0][1]), 'For Image')
 
-        CutRotatedImage = rotatedImage[int(round(XPixelsForCut[0][0])):int(round(XPixelsForCut[0][1])),
-                                       int(round(YPixelsForCut[0][0])):int(round(YPixelsForCut[0][1]))]
+        CutRotatedImage = rotatedImageForCut[round(XPixelsForCut[0][0]):round(XPixelsForCut[0][1]),
+                                       round(YPixelsForCut[0][0]):round(YPixelsForCut[0][1])]
 
         rowsRotated, colsRotated, channelsRotated = CutRotatedImage.shape
 
         print('Pixel Size for images : ', rowsRotated , ' X', colsRotated, ' and channels : ', channelsRotated)
 
-        cv2.imwrite('./img/rotatedImage.png', CutRotatedImage)
+        cv2.imshow('CutRotatedImage', CutRotatedImage)
 
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
+        cv2.imwrite('./img/Cut' + inputImage, CutRotatedImage)
+
+        return './img/Cut'+inputImage
+
     else :
         XPixelsForCut = []
         YPixelsForCut = []
@@ -192,15 +196,12 @@ def ShapeDetectForSingleImage(inputImage):
                                      round(YPixelsForCut[0][0]),round(YPixelsForCut[0][1]), 'For Image')
 
         CutImage = ImageForCut[int(round(XPixelsForCut[0][0])):int(round(XPixelsForCut[0][1])),
-                                           int(round(YPixelsForCut[0][0])):int(round(YPixelsForCut[0][1]))]
+                               int(round(YPixelsForCut[0][0])):int(round(YPixelsForCut[0][1]))]
 
         rowsCut, colsCut, channelsCut = CutImage.shape
 
         print('Pixel Size for images : ', rowsCut , ' X', colsCut, ' and channels : ', channelsCut)
 
-        cv2.imwrite('./img/CutImage.png', CutImage)
+        cv2.imwrite('./img/Cut' + inputImage, CutImage)
 
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
-
-        return rowsCut, colsCut, channelsCut
+        return './img/Cut'+inputImage
