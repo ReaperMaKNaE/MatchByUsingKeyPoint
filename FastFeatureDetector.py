@@ -12,8 +12,6 @@
 
 '''
 import cv2
-import matplotlib.pyplot as plt
-import numpy as np
 import math
 
 
@@ -23,7 +21,7 @@ def detectDefectUsingThreshold(firstImage, secondImage, thresholdValue1 = 20, th
     popListDistance = 10
     threshold1 = 130
     threshold2 = 150
-    defectDetectDistance = 20
+    defectDetectDistance = 50
 
     while(defect == 0):
         if (threshold1 < thresholdValue1 & threshold2 < thresholdValue2):
