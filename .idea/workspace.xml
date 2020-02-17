@@ -28,7 +28,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="tasks" />
   </component>
-  <component name="RunManager" selected="Python.FindThresholdFromNormalImage">
+  <component name="RunManager" selected="Python.ShapeDetectOneFigure">
     <configuration name="FindThresholdFromNormalImage" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="MatchByUsingKeyPoint" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -57,9 +57,9 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="" />
+      <option name="SDK_HOME" value="C:\Users\ReaperMaKNaE\Anaconda3\envs\python35\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ShapeDetectOneFigure.py" />
@@ -73,8 +73,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.FindThresholdFromNormalImage" />
         <item itemvalue="Python.ShapeDetectOneFigure" />
+        <item itemvalue="Python.FindThresholdFromNormalImage" />
       </list>
     </recent_temporary>
   </component>
@@ -108,29 +108,33 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="975" y="50" key="#FindThresholdFromNormalImage/0.0.1600.860@0.0.1600.860" timestamp="1581298537937" />
+    <state x="713" y="73" key="#ShapeDetectOneFigure" timestamp="1581918403279">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="713" y="73" key="#ShapeDetectOneFigure/0.0.1600.860@0.0.1600.860" timestamp="1581918403279" />
     <state x="770" y="182" key="FileChooserDialogImpl" timestamp="1581558230583">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="770" y="182" key="FileChooserDialogImpl/0.0.1600.860@0.0.1600.860" timestamp="1581558230583" />
-    <state width="1085" height="178" key="GridCell.Tab.0.bottom" timestamp="1581309354913">
+    <state width="1411" height="178" key="GridCell.Tab.0.bottom" timestamp="1581918575309">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1085" height="178" key="GridCell.Tab.0.bottom/0.0.1600.860@0.0.1600.860" timestamp="1581309354913" />
+    <state width="1411" height="178" key="GridCell.Tab.0.bottom/0.0.1600.860@0.0.1600.860" timestamp="1581918575309" />
     <state width="1362" height="266" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1580981715961" />
-    <state width="1085" height="178" key="GridCell.Tab.0.center" timestamp="1581309354913">
+    <state width="1411" height="178" key="GridCell.Tab.0.center" timestamp="1581918575309">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1085" height="178" key="GridCell.Tab.0.center/0.0.1600.860@0.0.1600.860" timestamp="1581309354913" />
+    <state width="1411" height="178" key="GridCell.Tab.0.center/0.0.1600.860@0.0.1600.860" timestamp="1581918575309" />
     <state width="1362" height="266" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1580981715961" />
-    <state width="1085" height="178" key="GridCell.Tab.0.left" timestamp="1581309354913">
+    <state width="1411" height="178" key="GridCell.Tab.0.left" timestamp="1581918575309">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1085" height="178" key="GridCell.Tab.0.left/0.0.1600.860@0.0.1600.860" timestamp="1581309354913" />
+    <state width="1411" height="178" key="GridCell.Tab.0.left/0.0.1600.860@0.0.1600.860" timestamp="1581918575309" />
     <state width="1362" height="266" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1580981715961" />
-    <state width="1085" height="178" key="GridCell.Tab.0.right" timestamp="1581309354913">
+    <state width="1411" height="178" key="GridCell.Tab.0.right" timestamp="1581918575309">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1085" height="178" key="GridCell.Tab.0.right/0.0.1600.860@0.0.1600.860" timestamp="1581309354913" />
+    <state width="1411" height="178" key="GridCell.Tab.0.right/0.0.1600.860@0.0.1600.860" timestamp="1581918575309" />
     <state width="1362" height="266" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1580981715961" />
     <state x="695" y="171" width="1171" height="709" key="SettingsEditor" timestamp="1580980208005">
       <screen x="0" y="0" width="1920" height="1040" />
