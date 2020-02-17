@@ -36,9 +36,9 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="" />
+      <option name="SDK_HOME" value="C:\Users\ReaperMaKNaE\Anaconda3\envs\python35\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/FindThresholdFromNormalImage.py" />
@@ -104,21 +104,33 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1362" height="266" key="GridCell.Tab.0.bottom" timestamp="1580981715961">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="975" y="50" key="#FindThresholdFromNormalImage" timestamp="1581298537937">
+      <screen x="0" y="0" width="1600" height="860" />
     </state>
+    <state x="975" y="50" key="#FindThresholdFromNormalImage/0.0.1600.860@0.0.1600.860" timestamp="1581298537937" />
+    <state x="770" y="182" key="FileChooserDialogImpl" timestamp="1581558230583">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="770" y="182" key="FileChooserDialogImpl/0.0.1600.860@0.0.1600.860" timestamp="1581558230583" />
+    <state width="1085" height="178" key="GridCell.Tab.0.bottom" timestamp="1581309354913">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state width="1085" height="178" key="GridCell.Tab.0.bottom/0.0.1600.860@0.0.1600.860" timestamp="1581309354913" />
     <state width="1362" height="266" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1580981715961" />
-    <state width="1362" height="266" key="GridCell.Tab.0.center" timestamp="1580981715961">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1085" height="178" key="GridCell.Tab.0.center" timestamp="1581309354913">
+      <screen x="0" y="0" width="1600" height="860" />
     </state>
+    <state width="1085" height="178" key="GridCell.Tab.0.center/0.0.1600.860@0.0.1600.860" timestamp="1581309354913" />
     <state width="1362" height="266" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1580981715961" />
-    <state width="1362" height="266" key="GridCell.Tab.0.left" timestamp="1580981715961">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1085" height="178" key="GridCell.Tab.0.left" timestamp="1581309354913">
+      <screen x="0" y="0" width="1600" height="860" />
     </state>
+    <state width="1085" height="178" key="GridCell.Tab.0.left/0.0.1600.860@0.0.1600.860" timestamp="1581309354913" />
     <state width="1362" height="266" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1580981715961" />
-    <state width="1362" height="266" key="GridCell.Tab.0.right" timestamp="1580981715961">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1085" height="178" key="GridCell.Tab.0.right" timestamp="1581309354913">
+      <screen x="0" y="0" width="1600" height="860" />
     </state>
+    <state width="1085" height="178" key="GridCell.Tab.0.right/0.0.1600.860@0.0.1600.860" timestamp="1581309354913" />
     <state width="1362" height="266" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1580981715961" />
     <state x="695" y="171" width="1171" height="709" key="SettingsEditor" timestamp="1580980208005">
       <screen x="0" y="0" width="1920" height="1040" />
