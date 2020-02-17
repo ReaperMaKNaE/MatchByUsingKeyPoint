@@ -22,7 +22,7 @@ def ShapeDetectForSingleImage(inputImage):
 
     # Call Image and Get Information for Image
 
-    Image = cv2.imread('./img/' + inputImage)
+    Image = cv2.imread('./Cosmetic/defect/' + inputImage)
     YPixels, XPixels, channels = Image.shape
     print('Y Pixels : ', YPixels, 'X Pixels : ', XPixels, 'channels : ', channels)
 
@@ -65,7 +65,7 @@ def ShapeDetectForSingleImage(inputImage):
     dst1 = dst.copy()
     cv2.drawContours(dst1, [box], 0, (0,0,255), 2)
     cv2.imshow('Image After Contour', dst1)
-    cv2.imwrite('./img/Contoured' + inputImage, dst1)
+    cv2.imwrite('./Cosmetic/' + inputImage, dst1)
 
     # Print Coordinate for Normal Image
 
@@ -172,7 +172,7 @@ def ShapeDetectForSingleImage(inputImage):
 
         cv2.imshow('CutRotatedImage', CutRotatedImage)
 
-        cv2.imwrite('./img/Cut' + inputImage, CutRotatedImage)
+        cv2.imwrite('./CosmeticCut/Defect/' + inputImage, CutRotatedImage)
 
         return './img/Cut'+inputImage
 
@@ -202,6 +202,8 @@ def ShapeDetectForSingleImage(inputImage):
 
         print('Pixel Size for images : ', rowsCut , ' X', colsCut, ' and channels : ', channelsCut)
 
-        cv2.imwrite('./img/Cut' + inputImage, CutImage)
+        cv2.imwrite('./CosmeticCut/defect/' + inputImage, CutImage)
 
         return './img/Cut'+inputImage
+
+ShapeDetectForSingleImage('1.jpg')
