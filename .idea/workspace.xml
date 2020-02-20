@@ -170,6 +170,7 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
+<<<<<<< HEAD
     <state x="929" y="104" key="#CheckFiles" timestamp="1582089406873">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
@@ -178,6 +179,16 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="362" y="41" key="#CutImageInXAxis/0.0.1600.860@0.0.1600.860" timestamp="1582094895605" />
+=======
+<<<<<<< HEAD
+    <state x="851" y="261" key="FileChooserDialogImpl" timestamp="1581486262685">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="851" y="261" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1581486262685" />
+    <state width="1362" height="266" key="GridCell.Tab.0.bottom" timestamp="1580981715961">
+      <screen x="0" y="0" width="1920" height="1040" />
+=======
+>>>>>>> 32e467d60f4c8959c07f6f3b35636382496c9aa5
     <state x="975" y="50" key="#FindThresholdFromNormalImage" timestamp="1581298537937">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
@@ -192,6 +203,7 @@
     <state x="713" y="73" key="#ShapeDetectOneFigure/0.0.1600.860@0.0.1600.860" timestamp="1581918403279" />
     <state x="770" y="182" key="FileChooserDialogImpl" timestamp="1581558230583">
       <screen x="0" y="0" width="1600" height="860" />
+>>>>>>> fdebce7457ca71d18dc683b16d9a1f9889894f37
     </state>
     <state x="770" y="182" key="FileChooserDialogImpl/0.0.1600.860@0.0.1600.860" timestamp="1581558230583" />
     <state width="1228" height="108" key="GridCell.Tab.0.bottom" timestamp="1582096445130">
