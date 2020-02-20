@@ -12,6 +12,7 @@
 import cv2
 import numpy as np
 import math
+import os
 
 PI = 3.141592
 
@@ -21,6 +22,7 @@ whiteScreen = 10
 def ShapeDetectForSingleImage(inputImage):
 
     # Call Image and Get Information for Image
+    print('input Image : ', inputImage)
 
     Image = cv2.imread('./Cosmetic/defect/' + inputImage)
     YPixels, XPixels, channels = Image.shape
@@ -34,7 +36,7 @@ def ShapeDetectForSingleImage(inputImage):
 
     Image = cv2.resize(Image, dsize=(640, 480), interpolation=cv2.INTER_AREA)
     gray = cv2.cvtColor(Image, cv2.COLOR_BGR2GRAY)
-    ret, binaryImage = cv2.threshold(gray, 220, 255, cv2.THRESH_BINARY_INV)
+    ret, binaryImage = cv2.threshold(gray, 150, 255, cv2.THRESH_BINARY_INV)
     binaryImage = cv2.dilate(binaryImage, None)
 
     # Find Contour of Image
@@ -65,7 +67,7 @@ def ShapeDetectForSingleImage(inputImage):
     dst1 = dst.copy()
     cv2.drawContours(dst1, [box], 0, (0,0,255), 2)
     cv2.imshow('Image After Contour', dst1)
-    cv2.imwrite('./Cosmetic/' + inputImage, dst1)
+    # cv2.imwrite('./Cosmetic/' + inputImage, dst1)
 
     # Print Coordinate for Normal Image
 
@@ -77,9 +79,12 @@ def ShapeDetectForSingleImage(inputImage):
     #
     # The order of components of box -> [Left Downside], [Left Upside], [Right Upside], [Right Downside]
     #
-
+    if box[0][0] == 0 :
+        print(inputImage, 'has an error. Not Convert')
+        return 0
     slopeForHorizontalImage = (box[2][1] - box[1][1]) / (box[2][0] - box[1][0])
 
+    '''
     if(slopeForHorizontalImage != 0):
         print('Images are not on horizontal... Start Make it horizontal.')
 
@@ -152,6 +157,11 @@ def ShapeDetectForSingleImage(inputImage):
         XPixelsForCut = []
         YPixelsForCut = []
 
+
+        if(boxRotatedImage[0][0] <= 0):
+            print(inputImage, ' has an Error. Assertion is occurred')
+            return 1
+
         XPixelsForCut.append((min([boxRotatedImage[2][1] - whiteScreen , boxRotatedImage[3][1] - whiteScreen]),
                               max([boxRotatedImage[1][1] + whiteScreen , boxRotatedImage[0][1] - whiteScreen])))
 
@@ -172,38 +182,54 @@ def ShapeDetectForSingleImage(inputImage):
 
         cv2.imshow('CutRotatedImage', CutRotatedImage)
 
-        cv2.imwrite('./CosmeticCut/Defect/' + inputImage, CutRotatedImage)
+        # cv2.imwrite('./CosmeticCut/Defect/' + inputImage, CutRotatedImage)
+        cv2.waitKey(0)
 
-        return './img/Cut'+inputImage
+        return 0
 
     else :
-        XPixelsForCut = []
-        YPixelsForCut = []
+    '''
+    XPixelsForCut = []
 
-        XPixelsForCut.append((min([box[2][1] - whiteScreen, box[3][1] - whiteScreen])
-                              * YPixels / 480,
-                              max([box[3][1] + whiteScreen, box[0][1] - whiteScreen])
-                              * YPixels / 480))
+    YPixelsForCut = []
 
-        YPixelsForCut.append((min([box[1][0] - whiteScreen, box[0][0] - whiteScreen])
-                              * XPixels / 640,
-                              max([box[2][0] + whiteScreen, box[3][0] + whiteScreen])
-                              * XPixels / 640))
+    XPixelsForCut.append((min([box[2][1] - whiteScreen, box[3][1] - whiteScreen])
+                          * YPixels / 480,
+                          max([box[3][1] + whiteScreen, box[0][1] - whiteScreen])
+                          * YPixels / 480))
 
-        print('min and max value for Image : ', XPixelsForCut, YPixelsForCut)
+    YPixelsForCut.append((min([box[1][0] - whiteScreen, box[0][0] - whiteScreen])
+                        * XPixels / 640,
+                        max([box[2][0] + whiteScreen, box[3][0] + whiteScreen])
+                        * XPixels / 640))
 
-        print('round number = ', int(round(XPixelsForCut[0][0])),round(XPixelsForCut[0][1]),
-                                     round(YPixelsForCut[0][0]),round(YPixelsForCut[0][1]), 'For Image')
+    print('min and max value for Image : ', XPixelsForCut, YPixelsForCut)
 
-        CutImage = ImageForCut[int(round(XPixelsForCut[0][0])):int(round(XPixelsForCut[0][1])),
-                               int(round(YPixelsForCut[0][0])):int(round(YPixelsForCut[0][1]))]
+    print('round number = ', int(round(XPixelsForCut[0][0])),round(XPixelsForCut[0][1]),
+                                round(YPixelsForCut[0][0]),round(YPixelsForCut[0][1]), 'For Image')
 
-        rowsCut, colsCut, channelsCut = CutImage.shape
+    CutImage = ImageForCut[int(round(XPixelsForCut[0][0])):int(round(XPixelsForCut[0][1])),
+                        int(round(YPixelsForCut[0][0])):int(round(YPixelsForCut[0][1]))]
 
-        print('Pixel Size for images : ', rowsCut , ' X', colsCut, ' and channels : ', channelsCut)
+    rowsCut, colsCut, channelsCut = CutImage.shape
 
-        cv2.imwrite('./CosmeticCut/defect/' + inputImage, CutImage)
+    print('Pixel Size for images : ', rowsCut , ' X', colsCut, ' and channels : ', channelsCut)
 
-        return './img/Cut'+inputImage
+    # cv2.imwrite('./CosmeticCut/defect/' + inputImage, CutImage)
+    cv2.waitKey(0)
 
-ShapeDetectForSingleImage('1.jpg')
+    return 0
+
+path = "./Cosmetic/defect/"
+
+file_list = os.listdir(path)
+
+rotationFail = 0
+
+for i in range(len(file_list)):
+    print(file_list[i])
+    check = ShapeDetectForSingleImage('{}'.format(file_list[i]))
+    if(check == 1 ):
+        rotationFail += 1
+
+print('Fail Rotation : ', rotationFail)
